@@ -3,21 +3,20 @@ import '../App.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
-export default function TaskModal({ onClose }) {
+export default function TaskModal({ onClose, onSave }) {
     const [formData, setFormData] = useState({
         nombre: '',
         descripcion: '',
-        fechaInicio: '',
+        fechaInicio: new Date().toISOString().split('T')[0],
         fechaLimite: '',
         encargado: '',
-        estado: '',
+        estado: 'pendiente',
         prioridad: '',
     });
 
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        // Chequear si todos los campos tienen valor
         const allFilled = Object.values(formData).every((value) => value.trim() !== '');
         setIsFormValid(allFilled);
     }, [formData]);
@@ -27,10 +26,15 @@ export default function TaskModal({ onClose }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(formData);
+    };
+
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <form className="task-form">
+                <form className="task-form" onSubmit={handleSubmit}>
                     <div className="input-group">
                         <span className="input-label">NOMBRE</span>
                         <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
