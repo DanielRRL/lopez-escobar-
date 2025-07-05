@@ -4,10 +4,18 @@ import { FaCalendarAlt } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
 export default function TaskModal({ onClose, onSave }) {
+    const getLocalDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const [formData, setFormData] = useState({
         nombre: '',
         descripcion: '',
-        fechaInicio: new Date().toISOString().split('T')[0],
+        fechaInicio: getLocalDate(),
         fechaLimite: '',
         encargado: '',
         estado: 'pendiente',
