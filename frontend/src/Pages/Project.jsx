@@ -9,6 +9,7 @@ export default function ProjectPage() {
     const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [priorityFilter, setPriorityFilter] = useState("");
+    const [customerFilter, setCustomerFilter] = useState("");
     const [editingProject, setEditingProject] = useState(null);
 
     const projectsPerPage = 5;
@@ -25,20 +26,26 @@ export default function ProjectPage() {
 
     const handleSaveProject = (projectData) => {
         if (editingProject) {
-            // Editar proyecto existente
             setProjects(prevProjects =>
                 prevProjects.map(p =>
                     p.id === editingProject.id
-                        ? { ...p, title: projectData.title, priority: projectData.priority }
+                        ? {
+                            ...p,
+                            title: projectData.title,
+                            priority: projectData.priority,
+                            description: projectData.description,
+                            customer: projectData.customer,
+                        }
                         : p
                 )
             );
         } else {
-            // Crear nuevo proyecto
             const newProject = {
                 id: Date.now(),
                 title: projectData.title,
                 priority: projectData.priority,
+                description: projectData.description,
+                customer: projectData.customer,
                 createdAt: new Date()
             };
             setProjects(prevProjects => [...prevProjects, newProject]);
@@ -58,9 +65,16 @@ export default function ProjectPage() {
         setCurrentPage(1);
     };
 
-    const filteredProjects = priorityFilter
-        ? projects.filter(project => project.priority === priorityFilter)
-        : projects;
+    const handleCustomerFilterChange = (e) => {
+        setCustomerFilter(e.target.value);
+        setCurrentPage(1);
+    };
+
+    const filteredProjects = projects.filter(project => {
+        const priorityMatch = priorityFilter ? project.priority === priorityFilter : true;
+        const customerMatch = customerFilter ? project.customer.toLowerCase().includes(customerFilter.toLowerCase()) : true;
+        return priorityMatch && customerMatch;
+    });
 
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     const startIndex = (currentPage - 1) * projectsPerPage;
@@ -100,6 +114,17 @@ export default function ProjectPage() {
                             <option value="Normal">Normal</option>
                             <option value="Bajo">Bajo</option>
                         </select>
+
+                        <div className="customer-search-container">
+                            <span className="search-icon">🔍</span>
+                            <input
+                                type="text"
+                                placeholder="Buscar por cliente"
+                                value={customerFilter}
+                                onChange={handleCustomerFilterChange}
+                                className="customer-filter"
+                            />
+                        </div>
                     </div>
                     <button className="add-project-button" onClick={handleOpenModal}>
                         AGREGAR PROYECTO
@@ -115,15 +140,18 @@ export default function ProjectPage() {
                                 <div key={project.id} className="project-card">
                                     <div className="project-content">
                                         <h3 className="project-title">{project.title}</h3>
-                                        <div className="project-priority">
-                                            <span
-                                                className={`priority-dot ${
-                                                    project.priority === 'Urgente' ? 'urgent' :
-                                                        project.priority === 'Alto' ? 'alto' :
-                                                            project.priority === 'Bajo' ? 'bajo' : 'normal'
-                                                }`}
-                                            ></span>
-                                            <span className="priority-text">{project.priority}</span>
+                                        <div className="project-priority-customer">
+                                            <div className="priority-container">
+                                                <span
+                                                    className={`priority-dot ${
+                                                        project.priority === 'Urgente' ? 'urgent' :
+                                                            project.priority === 'Alto' ? 'alto' :
+                                                                project.priority === 'Bajo' ? 'bajo' : 'normal'
+                                                    }`}
+                                                ></span>
+                                                <span className="priority-text">{project.priority}</span>
+                                            </div>
+                                            <span className="customer-text">{project.customer}</span>
                                         </div>
                                     </div>
                                     <div className="project-actions">

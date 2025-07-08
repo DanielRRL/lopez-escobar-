@@ -3,19 +3,25 @@ import React, { useState, useEffect } from 'react';
 export default function ProjectModal({ isOpen, onClose, onSave, initialData }) {
     const [formData, setFormData] = useState({
         title: '',
-        priority: 'Normal'
+        priority: 'Normal',
+        description: '',
+        customer: ''
     });
 
     useEffect(() => {
         if (initialData) {
             setFormData({
                 title: initialData.title,
-                priority: initialData.priority
+                priority: initialData.priority,
+                description: initialData.description,
+                customer: initialData.customer,
             });
         } else {
             setFormData({
                 title: '',
-                priority: 'Normal'
+                priority: 'Normal',
+                description: '',
+                customer: '',
             });
         }
     }, [initialData, isOpen]);
@@ -52,7 +58,28 @@ export default function ProjectModal({ isOpen, onClose, onSave, initialData }) {
                             name="title"
                             value={formData.title}
                             onChange={handleInputChange}
-                            placeholder="Escribe el título"
+                            required
+                        />
+                    </div>
+
+                    <div className="modal-input">
+                        <label>DESCRIPCIÓN</label>
+                        <input
+                            type="text"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="modal-input">
+                        <label>CLIENTE</label>
+                        <input
+                            type="text"
+                            name="customer"
+                            value={formData.customer}
+                            onChange={handleInputChange}
                             required
                         />
                     </div>

@@ -212,6 +212,18 @@ button:hover {
 }
 
 .priority-filter {
+  border: 1px solid #5E7C9F;
+  padding: 10px 15px;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  height: 50px;
+}
+
+.customer-search-container {
   padding: 10px 15px;
   border: 1px solid #5E7C9F;
   background-color: white;
@@ -221,6 +233,20 @@ button:hover {
   outline: none;
   cursor: pointer;
 }
+
+.search-icon {
+  margin-left: 8px;
+  color: #888;
+}
+
+.customer-filter {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
 
 .add-project-button {
   background-color: #4f709c;
@@ -368,10 +394,21 @@ button:hover {
   margin: 0 0 10px 0;
 }
 
-.project-priority {
+.priority-container {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.project-priority-customer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.customer-text {
+  font-size: 14px;
+  color: #333;
 }
 
 .priority-dot {
