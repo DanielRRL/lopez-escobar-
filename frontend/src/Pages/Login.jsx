@@ -1,51 +1,73 @@
-import '../App.css'
-import Logo  from '../assets/descargar.png'
-import { useState, useEffect } from "react";
-import { useAuth } from "../Context/UseAuth.jsx";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import '../css/Login.css'
+import Logo from '../assets/descargar.png'
 
-function LoginPage() {
-    const [user, setUser] = useState({ email: "", password: "" });
-    const { signin, errors, isAuthenticated } = useAuth();
-    const navigate = useNavigate();
+const Login = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
 
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        await signin(user);
+        // Lógica de autenticación
+        console.log('Datos del formulario:', formData);
     };
-
-    useEffect (() => {
-        if (isAuthenticated) {
-            navigate('/dashboard')
-        }
-    }, [isAuthenticated]);
 
     return (
-        <div>
-            <form className='form-user' id='form-users' onSubmit={handleSubmit} >
-                <img src={Logo} alt="Logo" />
-
-                <div className='email-user'>
-                    <label>CORREO ELECTRÓNICO</label>
-                    <div />
-                    <input type="email" required onChange={handleChange} name='email' />
-                </div>
-                <div className='password-user'>
-                    <label>CONTRASEÑA</label>
-                    <div />
-                    <input type="password" required onChange={handleChange} name='password' />
+        <div className="login-container">
+            <div className="login-card">
+                {/* Logo Container */}
+                <div className="logo-container">
+                   <img src={Logo} className="logo" alt="logo" />
                 </div>
 
-                <button>INGRESAR</button>
-                {errors && <p>{errors}</p>}
-            </form>
-            {isAuthenticated && <p>¡Login exitoso!</p>}
+                {/* Login Form */}
+                <div className="login-form">
+                    <div className="form-group">
+                        <label htmlFor="email">CORREO ELECTRÓNICO</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="form-input"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">CONTRASEÑA</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="form-input"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        onClick={handleSubmit}
+                        className="login-button"
+                        type="button"
+                    >
+                        INGRESAR
+                    </button>
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default LoginPage
+export default Login;

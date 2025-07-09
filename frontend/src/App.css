@@ -1,141 +1,10 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: "Montserrat", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.form-user {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-user img {
-  width: 150px;
-  margin-bottom: 40px;
-}
-
-.email-user,
-.password-user {
-  display: flex;
-  align-items: center;
-  border: 1px solid #5E7C9F;
-  width: 500px;
-  max-width: 600px;
-  margin-bottom: 20px;
-  padding: 0;
-}
-
-.email-user label,
-.password-user label {
-  font-size: 12px;
-  color: #595C5C;
-  letter-spacing: 0.8px;
-  padding: 14px 12px;
-  border-right: 1px solid #5E7C9F;
-  white-space: nowrap;
-  flex-shrink: 0;
-  width: 200px;
-  box-sizing: border-box;
-}
-
-.email-user input,
-.password-user input {
-  border: none;
-  padding: 14px;
-  font-size: 14px;
-  flex: 1;
-  outline: none;
-  background-color: transparent;
-}
-
-button {
-  background-color: #595C5C;
-  color: white;
-  border: none;
-  padding: 14px 0;
-  width: 200px;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #333;
-}
-
-.email-user:hover,
-.password-user:hover {
-  border: 2px solid #95ABC6;
-  color: black;
-}
-
-.email-user input:valid,
-.password-user input:valid {
-  border: none;
-  background-color: #f0fbf0; /* sutil verde claro */
-}
 
 /* DASH BOARD */
 .dashboard-container {
   display: flex;
   height: 100vh;
   background-color: #1e1e1e;
-}
-
-.sidebar {
-  background-color: #171c3b;
-  width: 200px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar-title {
-  color: #7d7d7d;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu-link {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding: 5px 0;
-  margin-top: 10px;
-  transition: color 0.3s ease;
-}
-
-.menu-link:hover {
-  color: #6da3d5;
-}
-
-.logout-button {
-  background-color: #4f709c;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-  background-color: #6da3d5;
 }
 
 .main-content {
@@ -159,32 +28,6 @@ button:hover {
   color: black;
 }
 
-/* SIDEBAR */
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  padding: 15px 20px;
-}
-
-.sidebar li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-}
-
-.sidebar li.active {
-  background-color: #355072;
-}
-
-.sidebar li:hover {
-  background-color: #355072;
-}
-
-
 /* PROJECTS */
 .projects-container {
   display: flex;
@@ -203,12 +46,14 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
   gap: 15px;
+  border-bottom: 1px solid #ddd;
 }
 
 .priority-filter {
@@ -248,25 +93,6 @@ button:hover {
 }
 
 
-.add-project-button {
-  background-color: #4f709c;
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 14px;
-  cursor: pointer;
-  margin-right: 100px;
-  width: 250px;
-}
-
-.add-project-button:hover {
-  background-color: #6da3d5;
-}
-
-.logo {
-  height: 50px;
-}
-
 .content-center {
   flex: 1;
   display: flex;
@@ -278,92 +104,6 @@ button:hover {
   font-size: 16px;
   color: black;
 }
-
-/* PROJECT MODAL */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.modal {
-  background-color: white;
-  padding: 30px;
-  width: 550px;
-  max-width: 90%;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-}
-
-.modal-input {
-  display: flex;
-  border: 1px solid #ddd;
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 0;
-}
-
-.modal-input label {
-  font-size: 12px;
-  color: #666;
-  padding: 14px 12px;
-  border-right: 1px solid #ddd;
-  white-space: nowrap;
-  flex-shrink: 0;
-  width: 120px;
-  box-sizing: border-box;
-  background-color: #f8f9fa;
-}
-
-.modal-input input,
-.modal-input select {
-  border: none;
-  padding: 14px;
-  font-size: 14px;
-  color: #595C5C;
-  flex: 1;
-  outline: none;
-  background-color: white;
-}
-
-.modal-input select {
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M6 9L1.5 4.5h9L6 9z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 30px;
-  color: #595C5C;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.btn_cancel {
-  background-color: #595C5C;
-  opacity: 70%;
-  color: white;
-}
-
-.btn_save {
-  background-color: #476A91;
-  color: white;
-}
-
-.btn_save:hover {
-  background-color: #6da3d5;
-}
-
 /* PROJECTS LISTS */
 .projects-list {
   width: 100%;
@@ -521,4 +261,6 @@ button:hover {
   color: #ccc;
   border-color: #e9ecef;
 }
+
+/* TASKS */
 

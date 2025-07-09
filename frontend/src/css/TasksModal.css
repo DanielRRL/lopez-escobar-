@@ -1,0 +1,220 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1D223D;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #7f8c8d;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+}
+
+/* Nuevo diseño de input con label flotante */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 16px 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: transparent;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.input-group label {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background-color: white;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* Estados de focus */
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 1px rgba(52, 152, 219, 0.2);
+}
+
+.input-group input:focus + label,
+.input-group textarea:focus + label,
+.input-group select:focus + label {
+    color: #3498db;
+}
+
+.required::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Campo readonly para proyecto */
+.readonly-input {
+    background-color: #f8f9fa !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+}
+
+.readonly-input:focus {
+    border-color: #ddd !important;
+    box-shadow: none !important;
+}
+
+/* Estilos para estados de tareas */
+.status-pendiente {
+    border-color: #ffc107 !important;
+}
+
+.status-pendiente + label {
+    color: #ffc107 !important;
+}
+
+.status-en-progreso {
+    border-color: #007bff !important;
+}
+
+.status-en-progreso + label {
+    color: #007bff !important;
+}
+
+.status-completado {
+    border-color: #28a745 !important;
+}
+
+.status-completado + label {
+    color: #28a745 !important;
+}
+
+.status-en-espera {
+    border-color: #6c757d !important;
+}
+
+.status-en-espera + label {
+    color: #6c757d !important;
+}
+
+.status-bajo-revision {
+    border-color: #17a2b8 !important;
+}
+
+.status-bajo-revision + label {
+    color: #17a2b8 !important;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #7f8c8d;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #f8f9fa;
+    border-color: #bdc3c7;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #476A91;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #5E7C9F;
+}
+
+.submit-button:disabled {
+    background-color: #5E7C9F;
+    cursor: not-allowed;
+}

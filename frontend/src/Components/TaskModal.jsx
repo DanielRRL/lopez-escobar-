@@ -1,44 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import '../css/ProjectModal.css';
+import '../css/TasksModal.css'
 
-const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode }) => {
+const TaskModal = ({ isOpen, onClose, onSubmit, editingTask, isEditMode, currentProject }) => {
     const [formData, setFormData] = useState({
-        titulo: '',
+        nombre: '',
         descripcion: '',
-        cliente: '',
-        prioridad: 'Normal'
+        encargado: '',
+        estado: 'pendiente',
+        proyecto: currentProject || ''
     });
 
-    const prioridadOptions = [
-        { value: 'Urgente', label: 'Urgente', className: 'priority-urgente' },
-        { value: 'Alto', label: 'Alto', className: 'priority-alto' },
-        { value: 'Normal', label: 'Normal', className: 'priority-normal' },
-        { value: 'Bajo', label: 'Bajo', className: 'priority-bajo' }
+    const estadoOptions = [
+        { value: 'pendiente', label: 'Pendiente', className: 'status-pendiente' },
+        { value: 'en_progreso', label: 'En Progreso', className: 'status-en-progreso' },
+        { value: 'completado', label: 'Completado', className: 'status-completado' },
+        { value: 'en_espera', label: 'En Espera', className: 'status-en-espera' },
+        { value: 'bajo_revision', label: 'Bajo Revisión', className: 'status-bajo-revision' }
     ];
 
-    // Efecto para cargar datos del proyecto a editar
+    // Efecto para cargar datos de la tarea a editar
     useEffect(() => {
         if (isOpen) {
-            if (isEditMode && editingProject) {
-                // Cargar datos del proyecto a editar
+            if (isEditMode && editingTask) {
+                // Cargar datos de la tarea a editar
                 setFormData({
-                    titulo: editingProject.titulo || '',
-                    descripcion: editingProject.descripcion || '',
-                    cliente: editingProject.cliente || '',
-                    prioridad: editingProject.prioridad || 'Normal'
+                    nombre: editingTask.nombre || '',
+                    descripcion: editingTask.descripcion || '',
+                    encargado: editingTask.encargado || '',
+                    estado: editingTask.estado || 'pendiente',
+                    proyecto: editingTask.proyecto || currentProject || ''
                 });
-                console.log('Cargando datos para editar:', editingProject);
+                console.log('Cargando datos para editar:', editingTask);
             } else {
-                // Resetear formulario para nuevo proyecto
+                // Resetear formulario para nueva tarea
                 setFormData({
-                    titulo: '',
+                    nombre: '',
                     descripcion: '',
-                    cliente: '',
-                    prioridad: 'Normal'
+                    encargado: '',
+                    estado: 'pendiente',
+                    proyecto: currentProject || ''
                 });
             }
         }
-    }, [isOpen, isEditMode, editingProject]);
+    }, [isOpen, isEditMode, editingTask, currentProject]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -51,7 +55,7 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formData.titulo.trim() || !formData.cliente.trim()) {
+        if (!formData.nombre.trim() || !formData.encargado.trim()) {
             alert('Por favor completa todos los campos requeridos');
             return;
         }
@@ -60,10 +64,11 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
 
         // Resetear formulario
         setFormData({
-            titulo: '',
+            nombre: '',
             descripcion: '',
-            cliente: '',
-            prioridad: 'Normal'
+            encargado: '',
+            estado: 'pendiente',
+            proyecto: currentProject || ''
         });
 
         onClose();
@@ -72,10 +77,11 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
     const handleCancel = () => {
         // Resetear formulario
         setFormData({
-            titulo: '',
+            nombre: '',
             descripcion: '',
-            cliente: '',
-            prioridad: 'Normal'
+            encargado: '',
+            estado: 'pendiente',
+            proyecto: currentProject || ''
         });
         onClose();
     };
@@ -86,9 +92,9 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
         }
     };
 
-    // Función para obtener la clase CSS según la prioridad
-    const getPriorityClass = (prioridad) => {
-        const option = prioridadOptions.find(opt => opt.value === prioridad);
+    // Función para obtener la clase CSS según el estado
+    const getStatusClass = (estado) => {
+        const option = estadoOptions.find(opt => opt.value === estado);
         return option ? option.className : '';
     };
 
@@ -99,7 +105,7 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
             <div className="modal-content">
                 <div className="modal-header">
                     <h2 className="modal-title">
-                        {isEditMode ? 'EDITAR PROYECTO' : 'AGREGAR NUEVO PROYECTO'}
+                        {isEditMode ? 'EDITAR TAREA' : 'AGREGAR NUEVA TAREA'}
                     </h2>
                     <button className="close-button" onClick={handleCancel}>
                         ×
@@ -110,13 +116,13 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
                     <div className="input-group">
                         <input
                             type="text"
-                            name="titulo"
-                            value={formData.titulo}
+                            name="nombre"
+                            value={formData.nombre}
                             onChange={handleChange}
                             placeholder=" "
                             required
                         />
-                        <label className="required">Título</label>
+                        <label className="required">Nombre</label>
                     </div>
 
                     <div className="input-group">
@@ -132,29 +138,42 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
                     <div className="input-group">
                         <input
                             type="text"
-                            name="cliente"
-                            value={formData.cliente}
+                            name="encargado"
+                            value={formData.encargado}
                             onChange={handleChange}
                             placeholder=" "
                             required
                         />
-                        <label className="required">Cliente</label>
+                        <label className="required">Encargado</label>
                     </div>
 
                     <div className="input-group">
                         <select
-                            name="prioridad"
-                            value={formData.prioridad}
+                            name="estado"
+                            value={formData.estado}
                             onChange={handleChange}
-                            className={getPriorityClass(formData.prioridad)}
+                            className={getStatusClass(formData.estado)}
                         >
-                            {prioridadOptions.map(option => (
+                            {estadoOptions.map(option => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
                                 </option>
                             ))}
                         </select>
-                        <label>Prioridad</label>
+                        <label>Estado</label>
+                    </div>
+
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            name="proyecto"
+                            value={formData.proyecto}
+                            onChange={handleChange}
+                            placeholder=" "
+                            readOnly
+                            className="readonly-input"
+                        />
+                        <label>Proyecto</label>
                     </div>
 
                     <div className="modal-footer">
@@ -162,7 +181,7 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
                             CANCELAR
                         </button>
                         <button type="submit" className="submit-button">
-                            {isEditMode ? 'GUARDAR CAMBIOS' : 'CREAR PROYECTO'}
+                            {isEditMode ? 'GUARDAR CAMBIOS' : 'CREAR TAREA'}
                         </button>
                     </div>
                 </form>
@@ -171,4 +190,4 @@ const ProjectModal = ({ isOpen, onClose, onSubmit, editingProject, isEditMode })
     );
 };
 
-export default ProjectModal;
+export default TaskModal;
